@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* Tailwind CSS v4 theme configuration */
+@theme {
+    /* Custom font families */
+    --font-display: "Inter", sans-serif;
+    --font-body: "Inter", sans-serif;
+
+    /* Custom breakpoints */
+    --breakpoint-xs: 375px;
+    --breakpoint-3xl: 1920px;
+
+    /* Brand color palette */
+    --color-brand-primary: #2563eb;
+    --color-brand-secondary: #1e293b;
+    --color-brand-accent: #f59e0b;
+
+    /* Dark mode brand colors */
+    --color-brand-primary-dark: #3b82f6;
+    --color-brand-secondary-dark: #f1f5f9;
+    --color-brand-accent-dark: #fbbf24;
+}
+
+:root {
+    /* Legacy color variables for backward compatibility */
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+        )
+        rgb(var(--background-start-rgb));
+}
+
+/* Future-ready: Prepare for Tailwind CSS 4.x @theme directive */
+/*
+@theme {
+  --font-display: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  
+  --breakpoint-3xl: 1920px;
+  
+  --color-brand-primary: #2563eb;
+  --color-brand-secondary: #1e293b;
+  --color-brand-accent: #f59e0b;
+}
+*/

@@ -10,7 +10,66 @@
         "priority": "high",
         "dependencies": [],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Next.js 14 Project with TypeScript",
+            "description": "Initialize a new Next.js 14 project using the create-next-app CLI with TypeScript support enabled.",
+            "dependencies": [],
+            "details": "Run the command `npx create-next-app@latest --ts` or `npx create-next-app@latest --typescript` to bootstrap a new Next.js project with TypeScript configured out of the box. This sets up the project folder and installs initial dependencies including TypeScript and related types automatically.\n<info added on 2025-06-16T14:23:05.457Z>\nTo avoid creating a nested project structure, temporarily move any existing files in the root directory that would conflict with create-next-app (such as .gitignore and README.md), ensuring the .taskmaster folder remains untouched. Run create-next-app with the TypeScript flag directly in the root directory. After initialization, merge back important content from the original files and clean up any redundant or duplicate files to maintain a clean, flat project structure.\n</info added on 2025-06-16T14:23:05.457Z>\n<info added on 2025-06-16T14:28:09.731Z>\nManual setup approach chosen due to create-next-app conflicts with existing files. Creating Next.js 14 project structure manually with the following steps: 1) Set up package.json with Next.js 14 and TypeScript dependencies, 2) Create tsconfig.json with Next.js TypeScript configuration, 3) Set up next.config.js for project configuration, 4) Create tailwind.config.ts for styling setup, 5) Establish src/ directory structure using app router architecture, 6) Install all required dependencies. This manual approach provides complete control over project structure and avoids nested folder issues while maintaining compatibility with existing project files.\n</info added on 2025-06-16T14:28:09.731Z>\n<info added on 2025-06-16T14:39:43.221Z>\nBased on latest research findings, critical version updates are required for the manual setup approach. The package.json dependencies need updating to Next.js 15.3 (latest stable) and React 19 (now stable and supported). Tailwind CSS should use version 3.4.1+ with preparation for upcoming 4.x structure that will use CSS-first configuration with @theme directive instead of JS config. The next.config.js must be updated to remove experimental.appDir flag as app router is stable in Next.js 15.x. PostCSS configuration should be prepared for Tailwind CSS 4.x using @tailwindcss/postcss plugin. These version updates ensure the project uses the most current stable technologies and follows latest best practices for Next.js 15 with React 19 compatibility.\n</info added on 2025-06-16T14:39:43.221Z>\n<info added on 2025-06-16T15:20:59.914Z>\nProject successfully upgraded to cutting-edge technology stack with full Node.js 24 compatibility. All major dependencies updated including React 19.1.0, TypeScript 5.8.3, @types/node 24.0.0, and ESLint 9.17.0. Completed major migration to Tailwind CSS v4.1.10 with new CSS-first configuration approach using @theme directive in globals.css instead of JavaScript config file. PostCSS configuration updated to use @tailwindcss/postcss plugin for v4 compatibility. Resolved all dependency conflicts through clean installation process. Build verification confirms successful compilation with Next.js 15.3.0, passing TypeScript checks, and working Tailwind v4 processing. Development environment now ready with latest stable versions and enhanced Node.js 24 performance optimizations.\n</info added on 2025-06-16T15:20:59.914Z>",
+            "status": "in-progress"
+          },
+          {
+            "id": 2,
+            "title": "Configure TypeScript Strict Mode",
+            "description": "Enable and customize strict mode settings in the TypeScript configuration for better type safety.",
+            "dependencies": [
+              1
+            ],
+            "details": "After project creation, locate the generated `tsconfig.json` file and set the `strict` compiler option to `true` to enable strict type checking. Adjust other compiler options as needed for your project requirements. If migrating from JavaScript, copy any relevant `paths` from an existing `jsconfig.json` to the new `tsconfig.json`.",
+            "status": "pending"
+          },
+          {
+            "id": 3,
+            "title": "Set Up ESLint",
+            "description": "Configure ESLint for code linting with Next.js recommended settings.",
+            "dependencies": [
+              1
+            ],
+            "details": "Next.js includes built-in ESLint support. Run `npm run lint` to trigger ESLint setup prompts. Choose the 'Strict' or 'Base' configuration to automatically install `eslint` and `eslint-config-next` and generate an `.eslintrc.json` file with recommended rules. Add a lint script to `package.json` if not present.",
+            "status": "pending"
+          },
+          {
+            "id": 4,
+            "title": "Set Up Prettier for Code Formatting",
+            "description": "Integrate Prettier to enforce consistent code formatting alongside ESLint.",
+            "dependencies": [
+              3
+            ],
+            "details": "Install Prettier and related ESLint plugins (`prettier`, `eslint-config-prettier`, `eslint-plugin-prettier`). Create a `.prettierrc` configuration file to define formatting rules. Update ESLint config to extend Prettier settings to avoid conflicts. Add formatting scripts to `package.json` for convenience.",
+            "status": "pending"
+          },
+          {
+            "id": 5,
+            "title": "Configure Environment Variables",
+            "description": "Set up environment variables for development and production environments.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create `.env.local`, `.env.development`, and `.env.production` files in the project root as needed. Define variables prefixed with `NEXT_PUBLIC_` for client-side access. Ensure `.env` files are added to `.gitignore` to avoid committing sensitive data. Access variables in code via `process.env`.",
+            "status": "pending"
+          },
+          {
+            "id": 6,
+            "title": "Optimize next.config.js",
+            "description": "Customize and optimize the Next.js configuration file for performance and feature needs.",
+            "dependencies": [
+              1
+            ],
+            "details": "Edit or create `next.config.js` in the project root to add custom settings such as image optimization, experimental features, redirects, rewrites, or webpack customizations. Use this file to fine-tune build and runtime behavior according to project requirements.",
+            "status": "pending"
+          }
+        ]
       },
       {
         "id": 2,
@@ -388,11 +447,22 @@
             "status": "pending"
           }
         ]
+      },
+      {
+        "id": 19,
+        "title": "Create GitHub Repository and Push Initial Code",
+        "description": "Set up GitHub repository named 'student-build-pack' with public visibility and proper configuration, then push initial codebase and connect local git repository to remote origin.",
+        "details": "Create new GitHub repository with name 'student-build-pack' and set visibility to public. Configure repository description as 'A collection of paid products available for free or at a discount for students want to build'. Add appropriate topics/tags like 'student-discounts', 'nextjs', 'typescript', 'developer-tools'. Initialize repository with README.md template including project overview, setup instructions, and contribution guidelines. Set up local git repository using `git init`, add remote origin with `git remote add origin https://github.com/[username]/student-build-pack.git`. Create initial commit with existing codebase including Next.js configuration, Tailwind setup, database schema, and any completed components. Push code using `git push -u origin main`. Configure repository settings including branch protection rules, issue templates, and pull request templates for future collaboration. Add LICENSE file (MIT recommended) and .gitignore for Node.js/Next.js projects.",
+        "testStrategy": "Verify repository is created successfully on GitHub with correct name and public visibility. Confirm repository description and topics are properly set. Test that local git repository is properly connected by running `git remote -v` to verify origin URL. Verify initial code push completed successfully by checking GitHub repository contains all project files. Test clone functionality by cloning repository to different directory. Confirm README.md displays properly on GitHub repository page and includes all necessary project information.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-06-16T12:28:35.938Z",
-      "updated": "2025-06-16T12:28:35.938Z",
+      "updated": "2025-06-16T14:16:48.075Z",
       "description": "Tasks for master context"
     }
   }

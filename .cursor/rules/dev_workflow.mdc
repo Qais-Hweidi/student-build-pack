@@ -3,13 +3,36 @@ description: Guide for using Taskmaster to manage task-driven development workfl
 globs: **/*
 alwaysApply: true
 ---
-
 # Taskmaster Development Workflow
 
 This guide outlines the standard process for using Taskmaster to manage software development projects. It is written as a set of instructions for you, the AI agent.
 
 - **Your Default Stance**: For most projects, the user can work directly within the `master` task context. Your initial actions should operate on this default context unless a clear pattern for multi-context work emerges.
 - **Your Goal**: Your role is to elevate the user's workflow by intelligently introducing advanced features like **Tagged Task Lists** when you detect the appropriate context. Do not force tags on the user; suggest them as a helpful solution to a specific need.
+
+## 🚨 CRITICAL: GitHub Push Reminders
+
+**ALWAYS REMIND THE USER TO PUSH TO GITHUB AFTER:**
+- Completing any full task (when setting status to 'done')
+- Completing 3+ subtasks in a row
+- Finishing any major implementation milestone
+- Making significant changes to project structure
+- Before ending a work session
+
+**Reminder Format:**
+"Great work! 🎉 You've completed [task/milestone]. This is a good time to commit and push your changes to GitHub:
+```bash
+git add .
+git commit -m "[descriptive commit message]"
+git push
+```
+This ensures your progress is saved and backed up."
+
+**Why This Matters:**
+- Prevents work loss
+- Creates commit history for progress tracking
+- Enables collaboration and code review
+- Maintains good version control practices
 
 ## The Basic Loop
 The fundamental development cycle you will facilitate is:
@@ -397,7 +420,17 @@ Once a task has been broken down into subtasks using `expand_task` or similar me
     *   Execute the commit command directly in the terminal (e.g., `git commit -m 'feat(module): Implement feature X for subtask <subtaskId>\n\n- Details about changes...\n- Updated rule Y for pattern Z'`).
     *   Consider if a Changeset is needed according to internal versioning guidelines (previously linked to `changeset.mdc`). If so, run `npm run changeset`, stage the generated file, and amend the commit or create a new one.
 
-10. **Proceed to Next Subtask:**
+10. **🚨 PUSH TO GITHUB:**
+    *   **CRITICAL**: After completing any full task or 3+ subtasks, ALWAYS remind the user to push to GitHub:
+    *   *"Great work! 🎉 You've completed [task/subtasks]. This is a good time to commit and push your changes to GitHub:*
+    ```bash
+    git add .
+    git commit -m "[descriptive commit message]"
+    git push
+    ```
+    *This ensures your progress is saved and backed up."*
+
+11. **Proceed to Next Subtask:**
     *   Identify the next subtask (e.g., using `next_task` / `task-master next`).
 
 ## Code Analysis & Refactoring Techniques
