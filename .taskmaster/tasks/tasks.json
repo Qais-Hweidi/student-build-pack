@@ -1,0 +1,399 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Initialize Next.js 14 Project with TypeScript",
+        "description": "Set up the foundational Next.js 14 project with App Router, TypeScript configuration, and essential development tools",
+        "details": "Create new Next.js 14 project using `npx create-next-app@latest student-build-pack --typescript --tailwind --eslint --app --src-dir --import-alias '@/*'`. Configure TypeScript with strict mode, set up ESLint with Next.js recommended rules, and configure Prettier for code formatting. Set up .env.local for environment variables. Install additional dependencies: @types/node, @types/react, @types/react-dom. Configure next.config.js for image optimization and performance.",
+        "testStrategy": "Verify project builds successfully with `npm run build`, TypeScript compilation passes without errors, and development server starts on localhost:3000",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Configure Tailwind CSS and Design System",
+        "description": "Set up Tailwind CSS with custom configuration and create a consistent design system for the platform",
+        "details": "Configure tailwind.config.js with custom color palette, typography scale, and responsive breakpoints. Set up custom CSS variables in globals.css for brand colors. Create utility classes for common patterns like card shadows, hover effects, and transitions. Configure Tailwind plugins for forms and typography if needed. Set up design tokens for consistent spacing, colors, and typography throughout the application.",
+        "testStrategy": "Create test components using Tailwind classes, verify responsive design works across different screen sizes, and ensure custom design tokens are properly applied",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Set up PostgreSQL Database and Prisma ORM",
+        "description": "Configure PostgreSQL database connection and set up Prisma ORM for type-safe database operations",
+        "details": "Install Prisma CLI and client: `npm install prisma @prisma/client`. Initialize Prisma with `npx prisma init`. Configure DATABASE_URL in .env for PostgreSQL connection (recommend Railway, Supabase, or PlanetScale for free tier). Set up Prisma schema with proper TypeScript types. Configure Prisma client singleton pattern for Next.js. Set up database connection pooling and error handling.",
+        "testStrategy": "Verify database connection works, Prisma client generates without errors, and basic CRUD operations can be performed through Prisma Studio",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Design and Implement Database Schema",
+        "description": "Create comprehensive database schema for service providers, analytics tracking, and site configuration",
+        "details": "Define Prisma schema models: ServiceProvider (id, name, logoUrl, description, websiteUrl, offerDescription, discountDetails, createdAt, updatedAt), Analytics (id, serviceId, clickedAt, userAgent, referrerSource, sessionId, ipHash), PageViews (id, visitedAt, referrerSource, userAgent, pagePath, sessionId, ipHash), SiteConfiguration (id, githubRepoUrl, githubStarCount, lastStarCountUpdate, profileImageUrl, attributionText). Add proper indexes for performance on read-heavy operations. Set up foreign key relationships and constraints.",
+        "testStrategy": "Run `npx prisma db push` to apply schema, verify all tables are created correctly, and test relationships between models work as expected",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Create Database Seed Script with Initial Service Data",
+        "description": "Implement database seeding functionality and populate with initial 60 service provider offers",
+        "details": "Create prisma/seed.ts with comprehensive service provider data including GitHub Student Developer Pack services, cloud providers (AWS, GCP, Azure), development tools (JetBrains, Figma, Adobe), and infrastructure services (Vercel, Netlify). Include proper TypeScript interfaces for seed data. Implement error handling and duplicate prevention. Add site configuration defaults including GitHub repo URL and profile image. Use faker.js for generating realistic test data if needed.",
+        "testStrategy": "Run `npx prisma db seed` successfully, verify all 60+ services are inserted with proper data structure, and confirm no duplicate entries exist",
+        "priority": "medium",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Build Core Layout Components and Navigation",
+        "description": "Create reusable layout components including header, footer, and main page structure with responsive design",
+        "details": "Create app/layout.tsx with proper metadata, viewport configuration, and global styles. Build Header component with site title and navigation. Create Footer component with links and attribution. Implement responsive navigation with mobile-first approach using Tailwind's responsive utilities. Add proper semantic HTML structure with accessibility considerations (ARIA labels, proper heading hierarchy). Set up layout composition patterns for consistent page structure.",
+        "testStrategy": "Test layout renders correctly on desktop and mobile, navigation is accessible via keyboard, and semantic HTML structure passes accessibility validation",
+        "priority": "medium",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Implement Service Card Component with TypeScript Interfaces",
+        "description": "Create the core service display component with proper TypeScript typing and responsive design",
+        "details": "Create ServiceCard component with TypeScript interface matching Prisma ServiceProvider model. Implement responsive card layout with company logo, service description, discount details, and CTA button. Add hover effects and loading states. Use Next.js Image component for optimized logo display. Implement proper error boundaries for missing images or data. Add click tracking preparation (event handlers without analytics implementation yet).",
+        "testStrategy": "Render service cards with mock data, verify responsive design works across screen sizes, images load properly with fallbacks, and hover states function correctly",
+        "priority": "high",
+        "dependencies": [
+          6,
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Create Referral Tracking System and URL Parameter Capture",
+        "description": "Implement system to capture and track referral sources from URL parameters for analytics",
+        "details": "Create utility functions to parse URL parameters (ref=producthunt, ref=twitter, etc.) using Next.js useSearchParams hook. Implement session management using browser sessionStorage to persist referral source across page interactions. Create TypeScript interfaces for referral tracking data. Set up middleware to capture referral sources on initial page load. Implement privacy-conscious IP hashing using crypto.createHash for basic session identification without storing personal data.",
+        "testStrategy": "Test URL parameter capture with various referral sources, verify session persistence works across page reloads, and confirm referral data is properly structured for database storage",
+        "priority": "medium",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Build GitHub Star Count Display Component",
+        "description": "Create component to fetch and display GitHub repository star count with caching mechanism",
+        "details": "Create GitHubStars component using GitHub REST API v4 to fetch repository star count. Implement caching mechanism using SiteConfiguration model to store star count and last update timestamp. Set up API route in app/api/github-stars/route.ts to handle GitHub API calls server-side. Add error handling for API failures with fallback display. Implement automatic refresh mechanism (daily updates). Style component with GitHub logo and star icon using Heroicons or similar icon library.",
+        "testStrategy": "Verify GitHub API integration works, star count displays correctly, caching mechanism prevents excessive API calls, and component gracefully handles API failures",
+        "priority": "medium",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Implement Floating Attribution Box Component",
+        "description": "Create personal branding component with profile image and attribution text positioned in bottom-right corner",
+        "details": "Create FloatingAttribution component with fixed positioning in bottom-right corner. Implement circular profile image using Next.js Image component with proper aspect ratio and loading optimization. Add subtle shadow and hover effects using Tailwind CSS. Ensure component doesn't interfere with main content and remains accessible on mobile devices. Make component responsive with appropriate sizing for different screen sizes. Include proper alt text and accessibility attributes.",
+        "testStrategy": "Verify component positions correctly across different screen sizes, doesn't overlap with main content, profile image loads properly, and hover effects work smoothly",
+        "priority": "low",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Create Community Contribution Prompt Component",
+        "description": "Build engaging component encouraging users to submit new discount offers with polished messaging",
+        "details": "Create ContributionPrompt component with compelling copy like 'Found a great student discount? Help other builders by submitting it here →'. Design with subtle call-to-action styling using Tailwind gradients and hover effects. Implement proper link handling (for now, link to GitHub issues or email). Add icon (plus sign or contribution icon) to make it visually appealing. Position strategically on homepage without being intrusive. Make component easily configurable for future enhancement to actual submission form.",
+        "testStrategy": "Verify component renders with proper styling, links work correctly, hover effects are smooth, and component integrates well with overall page design",
+        "priority": "low",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Build Homepage with Service Grid and Data Fetching",
+        "description": "Assemble main homepage displaying all service offers in responsive grid layout with server-side data fetching",
+        "details": "Create app/page.tsx as main homepage using Next.js App Router with server-side data fetching. Implement getServices() function using Prisma to fetch all service providers. Create responsive grid layout using CSS Grid and Tailwind classes. Integrate ServiceCard, GitHubStars, FloatingAttribution, and ContributionPrompt components. Add proper loading states and error boundaries. Implement SEO optimization with proper meta tags, structured data, and Open Graph tags for social sharing.",
+        "testStrategy": "Verify homepage loads all services correctly, responsive grid works on all screen sizes, server-side rendering functions properly, and SEO meta tags are correctly applied",
+        "priority": "high",
+        "dependencies": [
+          7,
+          9,
+          10,
+          11
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Homepage Page Structure",
+            "description": "Outline and document the main sections and hierarchy of the homepage, including header, main content, sidebar, and footer.",
+            "dependencies": [],
+            "details": "This includes identifying all major content blocks and their order, ensuring clarity for subsequent layout and integration tasks.",
+            "status": "pending"
+          },
+          {
+            "id": 2,
+            "title": "Implement Server-Side Data Fetching",
+            "description": "Set up server-side logic to fetch all necessary data for the homepage before rendering.",
+            "dependencies": [
+              1
+            ],
+            "details": "Determine data sources, implement API calls or database queries, and structure the data for use in the homepage components.",
+            "status": "pending"
+          },
+          {
+            "id": 3,
+            "title": "Develop Responsive Grid Layout",
+            "description": "Create a flexible grid layout system to arrange homepage sections and components responsively.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use CSS Grid or a framework to ensure the layout adapts to various screen sizes and devices.",
+            "status": "pending"
+          },
+          {
+            "id": 4,
+            "title": "Integrate Homepage Components",
+            "description": "Integrate and render all required components (e.g., hero, featured items, sidebar widgets) within the grid layout.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Ensure each component receives the correct data and is positioned according to the defined structure.",
+            "status": "pending"
+          },
+          {
+            "id": 5,
+            "title": "Handle Loading and Error States",
+            "description": "Implement UI states for loading and error scenarios during data fetching.",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "Display appropriate feedback to users while data is loading or if an error occurs, ensuring a smooth user experience.",
+            "status": "pending"
+          },
+          {
+            "id": 6,
+            "title": "Add SEO and Meta Tags",
+            "description": "Configure SEO best practices and set up meta tags for the homepage.",
+            "dependencies": [
+              1,
+              4
+            ],
+            "details": "Include title, description, Open Graph, and other relevant meta tags to optimize search engine visibility.",
+            "status": "pending"
+          },
+          {
+            "id": 7,
+            "title": "Test Homepage Functionality and Layout",
+            "description": "Write and execute tests to verify data fetching, component rendering, layout responsiveness, and SEO/meta tag presence.",
+            "dependencies": [
+              4,
+              5,
+              6
+            ],
+            "details": "Include unit, integration, and end-to-end tests to ensure the homepage works as intended across devices and scenarios.",
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Implement Click Tracking with Referral Context",
+        "description": "Add comprehensive click tracking system that captures user interactions with referral source context",
+        "details": "Create click tracking API route in app/api/track-click/route.ts to handle analytics data storage. Implement client-side tracking in ServiceCard component using onClick handlers. Capture click data including serviceId, timestamp, user agent, referral source, and session ID. Use server actions or API routes to store analytics data in PostgreSQL. Implement privacy-conscious tracking without storing personal information. Add proper error handling and retry logic for failed tracking requests.",
+        "testStrategy": "Test click tracking captures data correctly, referral context is preserved, analytics data is stored in database properly, and tracking doesn't impact user experience performance",
+        "priority": "medium",
+        "dependencies": [
+          8,
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Add Page View Analytics and Session Tracking",
+        "description": "Implement comprehensive page view tracking with referral source attribution and session management",
+        "details": "Create page view tracking using Next.js middleware or useEffect hooks to capture initial page loads. Implement session tracking using browser fingerprinting techniques (screen resolution, user agent, timezone) hashed for privacy. Store page view data in PageViews model with referral source attribution. Create utility functions for session ID generation and management. Add tracking for different page paths if additional pages are added. Ensure GDPR compliance by not storing personal data.",
+        "testStrategy": "Verify page views are tracked accurately, session IDs are consistent across interactions, referral sources are properly attributed, and no personal data is stored",
+        "priority": "medium",
+        "dependencies": [
+          8,
+          13
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Implement Error Handling and Loading States",
+        "description": "Add comprehensive error boundaries, loading states, and graceful failure handling throughout the application",
+        "details": "Create global error boundary component using React Error Boundary pattern. Implement loading skeletons for service cards using Tailwind CSS animations. Add error states for failed API calls, database connections, and image loading. Create custom 404 and 500 error pages with helpful messaging and navigation back to homepage. Implement retry mechanisms for failed requests. Add proper TypeScript error types and handling patterns throughout the application.",
+        "testStrategy": "Test error boundaries catch and display errors properly, loading states show during data fetching, custom error pages render correctly, and retry mechanisms work for failed requests",
+        "priority": "medium",
+        "dependencies": [
+          12,
+          13
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Optimize Performance and Image Handling",
+        "description": "Implement performance optimizations including image optimization, lazy loading, and bundle optimization",
+        "details": "Configure Next.js Image component with proper sizing, lazy loading, and placeholder blur effects. Implement image optimization for service provider logos with multiple formats (WebP, AVIF fallbacks). Add bundle analysis using @next/bundle-analyzer to identify optimization opportunities. Implement code splitting for better initial load performance. Add performance monitoring using Next.js built-in Web Vitals reporting. Configure caching headers for static assets and API responses.",
+        "testStrategy": "Run Lighthouse performance audit achieving scores >90, verify images load efficiently with proper lazy loading, bundle size is optimized, and Web Vitals metrics are within acceptable ranges",
+        "priority": "medium",
+        "dependencies": [
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "Set up SEO Optimization and Meta Tags",
+        "description": "Implement comprehensive SEO optimization including meta tags, structured data, and social media integration",
+        "details": "Configure app/layout.tsx with comprehensive meta tags including title, description, keywords, and viewport settings. Implement Open Graph tags for social media sharing with proper images and descriptions. Add structured data using JSON-LD for better search engine understanding. Create sitemap.xml and robots.txt files. Implement canonical URLs and proper heading hierarchy. Add Twitter Card meta tags for enhanced social sharing. Configure Google Analytics or similar tracking if required.",
+        "testStrategy": "Verify meta tags render correctly in browser dev tools, social media sharing previews work properly, structured data validates using Google's Rich Results Test, and sitemap is accessible",
+        "priority": "medium",
+        "dependencies": [
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Deploy to Production and Set up Monitoring",
+        "description": "Deploy application to Vercel with proper environment configuration and basic monitoring setup",
+        "details": "Set up Vercel deployment with proper environment variables for database connection and API keys. Configure production database with connection pooling and proper security settings. Set up domain configuration for studentbuildpack.com. Implement basic monitoring using Vercel Analytics and error tracking. Configure automatic deployments from main branch with preview deployments for pull requests. Set up backup strategy for database. Add basic uptime monitoring and alerting.",
+        "testStrategy": "Verify production deployment works correctly, all environment variables are properly configured, database connections are stable, monitoring captures errors and performance metrics, and domain resolves properly",
+        "priority": "high",
+        "dependencies": [
+          15,
+          16,
+          17
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Vercel Project Deployment Setup",
+            "description": "Initialize and configure the project for deployment on Vercel, ensuring the repository is connected and deployment environments are defined.",
+            "dependencies": [],
+            "details": "Connect the codebase to Vercel via Git integration, define Local, Preview, and Production environments, and verify the deployment pipeline is operational.",
+            "status": "pending"
+          },
+          {
+            "id": 2,
+            "title": "Environment Variable Configuration",
+            "description": "Set up and manage environment variables for all deployment environments (Local, Preview, Production) in Vercel.",
+            "dependencies": [
+              1
+            ],
+            "details": "Define sensitive and configuration-specific variables in the Vercel dashboard, ensuring correct scoping for each environment.",
+            "status": "pending"
+          },
+          {
+            "id": 3,
+            "title": "Production Database Configuration",
+            "description": "Configure and connect the production-grade database to the Vercel deployment, ensuring secure access and credentials management.",
+            "dependencies": [
+              2
+            ],
+            "details": "Provision the production database, set up secure connection strings as environment variables, and test connectivity from the deployed application.",
+            "status": "pending"
+          },
+          {
+            "id": 4,
+            "title": "Custom Domain Setup",
+            "description": "Assign and configure a custom domain for the production deployment, including DNS and SSL certificate management.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add the custom domain in the Vercel dashboard, update DNS records, and verify SSL certificate provisioning for secure access.",
+            "status": "pending"
+          },
+          {
+            "id": 5,
+            "title": "Monitoring and Observability Integration",
+            "description": "Integrate monitoring, logging, and observability tools with the Vercel deployment for real-time insights and diagnostics.",
+            "dependencies": [
+              1
+            ],
+            "details": "Enable Vercel's built-in analytics, set up log drains, and connect third-party monitoring services as needed.",
+            "status": "pending"
+          },
+          {
+            "id": 6,
+            "title": "Deployment Automation",
+            "description": "Automate the deployment process using Git-based workflows and Vercel's deployment triggers.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "Configure automatic deployments on Git pushes to main for production and to other branches for preview, ensuring zero-downtime and rollback strategies.",
+            "status": "pending"
+          },
+          {
+            "id": 7,
+            "title": "Backup and Alerting Setup",
+            "description": "Implement automated backup routines for critical data and configure alerting for incidents or failures.",
+            "dependencies": [
+              3,
+              5
+            ],
+            "details": "Schedule regular database backups, set up alerting for deployment failures and monitoring anomalies, and define incident response protocols.",
+            "status": "pending"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-16T12:28:35.938Z",
+      "updated": "2025-06-16T12:28:35.938Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

@@ -1,0 +1,247 @@
+<context>
+# Overview  
+Student Build Pack is a curated collection of discount offers and free services specifically designed for student builders and developers. The platform addresses the critical challenge faced by students who want to build projects and products but are constrained by limited budgets and lack access to premium development tools and services.
+
+The platform serves as a centralized hub where students can discover and access discounts from various service providers including cloud platforms, development tools, design software, analytics services, and other resources essential for building modern applications. By eliminating cost barriers, we enable student builders to focus on learning and creating instead of worrying about expensive tooling.
+
+The target audience includes computer science students, self-taught developers, coding bootcamp students, and any student working on personal or academic projects who needs access to professional-grade development tools and services.
+
+# Core Features  
+**Discount Offer Display System**
+- Clean, organized display of all available offers on a single page
+- Each offer includes: company logo, concise service description, discount details, and direct redemption link
+- Responsive design that works seamlessly across desktop and mobile devices
+- Fast loading times to ensure good user experience
+
+**Click-Through Analytics & Referral Tracking**
+- Track when students click on offers to measure engagement and value
+- Referral source tracking via URL parameters (e.g., ?ref=producthunt, ?ref=linkedin, ?ref=github)
+- Basic analytics tracking to understand which offers are most popular and which sources drive traffic
+- Data collection that respects user privacy while providing insights
+- Simple analytics data storage for future analysis (no admin panel needed for MVP)
+
+**Service Information Architecture**
+- Structured data model for service providers including logos, descriptions, and offer details
+- Flexible schema that can accommodate different types of offers and services
+- Easy content management through code/database updates
+- Scalable architecture for future feature additions
+
+**Personal Branding & Community Elements**
+- Floating attribution box in bottom-right corner displaying "By Qais" with circular profile image
+- GitHub repository integration showing star count with GitHub logo and star icon
+- Community contribution prompt encouraging users to submit new discount offers
+- Professional yet personal touch that builds trust and encourages engagement
+
+# User Experience  
+**Primary User Persona: The Student Builder**
+- Age: 18-25, studying computer science or self-learning development
+- Goal: Build projects without budget constraints
+- Pain Points: Limited budget, unfamiliarity with available student discounts
+- Technical Level: Doesn't matter
+
+**Core User Flow**
+1. Student discovers the platform through social media (with referral tracking), GitHub, or word-of-mouth
+2. Lands on StudentBuildPack.com homepage (e.g., studentbuildpack.com?ref=producthunt) displaying all available offers
+3. Referral source is automatically captured and stored for analytics
+4. Notices GitHub star count and contribution prompt, building confidence in the platform
+5. Browses through offers, reading descriptions to understand service value
+6. Clicks on relevant offers to be redirected to provider's student discount page (click tracked with referral context)
+7. Redeems discount directly with service provider
+8. Returns to platform to discover additional useful services
+9. May contribute by submitting new discount offers they discover
+
+**UI/UX Principles**
+- Simplicity: No account creation required, immediate access to all offers
+- Clarity: Each offer clearly explains the service and discount value
+- Speed: Fast page loads and minimal friction between discovery and redemption
+- Trust: Professional presentation that builds confidence in the offers
+- Community: Subtle prompts encouraging user contributions with polished text like "Found a great student discount? Help other builders by submitting it here →"
+- Attribution: Floating bottom-right attribution box ("By Qais" with profile image) for personal branding
+- Social Proof: GitHub star count display to show community support and project legitimacy
+</context>
+
+<PRD>
+# Technical Architecture  
+**Frontend Stack**
+- Next.js 14+ with App Router for modern React development and excellent SEO
+- TypeScript for type safety and better development experience
+- Tailwind CSS for utility-first styling and consistent design system
+- Responsive design principles for mobile-first development
+
+**Backend & Database**
+- PostgreSQL database for reliable data storage and complex queries
+- Prisma ORM for type-safe database operations and easy schema management
+- Next.js API routes for serverless backend functionality
+- Database schema optimized for read-heavy workloads (displaying offers)
+
+**Data Models**
+```
+Service Provider:
+- id, name, logo_url, description, website_url, offer_description, discount_details, created_at, updated_at
+
+Analytics:
+- id, service_id, clicked_at, user_agent, referrer_source (e.g., 'producthunt', 'twitter', 'github', 'direct')
+- session_id, ip_hash (for basic session tracking without storing personal data)
+
+Page Views:
+- id, visited_at, referrer_source, user_agent, page_path
+- session_id, ip_hash (track where users come from without admin panel complexity)
+
+Site Configuration:
+- github_repo_url, github_star_count (cached), last_star_count_update
+- profile_image_url, attribution_text
+```
+
+**Infrastructure**
+- Vercel for hosting (free tier suitable for MVP)
+- Database hosting on provider with good free tier (Railway, Supabase, or PlanetScale)
+- Image optimization through Next.js built-in features
+- Environment-based configuration for development/production
+
+**Testing Strategy**
+- Unit tests for utility functions and components
+- Integration tests for database operations
+- End-to-end tests for critical user flows
+- TypeScript for compile-time error catching
+
+# Development Roadmap  
+**Phase 1: Foundation & Learning (MVP Core)**
+- Set up development environment and project structure
+- Learn and implement basic Next.js project with TypeScript
+- Set up Tailwind CSS and create basic component library
+- Design and implement database schema with Prisma
+- Create basic homepage layout and component structure
+
+**Phase 2: Core Functionality**
+- Implement service provider data model and seed initial data
+- Build offer display components with proper TypeScript interfaces
+- Implement referral tracking system (?ref=source URL parameter capture)
+- Implement click tracking functionality with referral context
+- Add responsive design and mobile optimization
+- Set up basic analytics collection (no admin panel, simple data storage)
+- Create floating attribution box component with profile image
+- Implement GitHub star count display with GitHub API integration
+
+**Phase 3: Data & Content**
+- Seed database with initial 60 service provider offers
+- Implement community contribution prompt with polished messaging
+- Implement proper error handling and loading states
+- Add basic SEO optimization (meta tags, structured data for StudentBuildPack.com)
+- Set up basic analytics data collection (simple storage, no dashboard needed for MVP)
+- Set up GitHub star count caching and update mechanism
+- Test referral tracking with common sources (producthunt, twitter, github)
+
+**Phase 4: Polish & Optimization**
+- Performance optimization and image handling
+- Advanced TypeScript patterns and error boundaries
+- Comprehensive testing suite
+- Production deployment and monitoring setup
+
+**Phase 5: Future Enhancements (Post-MVP)**
+- Service categories and filtering
+- User submission system for new offers
+- Advanced analytics and reporting
+- Admin panel for content management
+- Community features and feedback system
+
+# Logical Dependency Chain
+**Foundation First (Critical Learning Path)**
+1. Next.js project setup → Understanding modern React development
+2. TypeScript configuration → Type safety from the start
+3. Tailwind setup → Styling system before components
+4. Basic routing and pages → Navigation fundamentals
+
+**Database Before Frontend Data**
+5. PostgreSQL setup → Understanding relational databases
+6. Prisma configuration → Learning ORM concepts
+7. Database schema design → Data modeling fundamentals
+8. Seed data creation → Testing database operations
+
+**Components Build on Each Other**
+9. Basic layout components → Reusable UI patterns
+10. Service card component → Core display element
+11. Referral tracking utilities → URL parameter capture and session management
+12. Floating attribution box → Personal branding element
+13. GitHub star display component → Social proof element
+14. Community contribution prompt → User engagement element
+15. Homepage assembly → Bringing components together
+16. Click tracking integration → Adding interactivity with referral context
+
+**Analytics and Polish**
+17. Analytics implementation → Understanding user behavior and referral sources
+18. Error handling → Professional error management
+19. Testing suite → Quality assurance practices
+20. Production deployment → Full-stack deployment learning
+
+# Learning Integration Strategy
+**Each Task Will Include:**
+- "What We're Learning" section explaining new concepts
+- "Why This Matters" explaining the importance of each implementation choice
+- "What Happens If We Don't" scenarios to understand consequences
+- "Key Concepts" highlighting important technical principles
+- Code comments explaining TypeScript patterns and React concepts
+
+**Progressive Complexity:**
+- Start with simple components and gradually introduce advanced patterns
+- Begin with basic TypeScript and evolve to complex interfaces
+- Start with static data, then introduce dynamic database operations
+- Begin with basic styling, then learn advanced Tailwind patterns
+
+# Risks and Mitigations  
+**Technical Learning Curve**
+- Risk: New tech stack might slow initial development
+- Mitigation: Break tasks into very small, focused learning units
+- Include extensive explanations and "why" reasoning in each task
+
+**Scope Creep**
+- Risk: Wanting to add features before MVP is complete
+- Mitigation: Strict prioritization with clear MVP definition
+- Phase-based development with user feedback integration points
+
+**Data Management**
+- Risk: Manual content updates might become cumbersome
+- Mitigation: Design flexible database schema from start
+- Plan for future admin panel in architecture decisions
+
+**User Adoption**
+- Risk: Building something students don't actually need
+- Mitigation: Start with well-researched, popular services
+- Quick MVP launch to gather real user feedback
+
+# Success Metrics
+**MVP Success Indicators:**
+- 60 high-quality service offers properly displayed
+- Basic click tracking functional
+- Mobile-responsive design working
+- Fast page load times (<3 seconds)
+- Error-free user experience
+
+**Learning Success Indicators:**
+- Comfortable with Next.js project structure and routing
+- Understanding of TypeScript interfaces and type safety
+- Proficiency with Prisma database operations
+- Confident with Tailwind CSS utility classes
+- Understanding of React component patterns and state management
+
+# Appendix  
+**Initial Service Categories to Consider:**
+- Cloud Services (AWS, GCP, Azure student credits)
+- Development Tools (GitHub Pro, JetBrains, Figma)
+- Design Resources (Adobe Creative Cloud, Sketch)
+- Analytics (Google Analytics, Mixpanel)
+- Infrastructure (Vercel, Netlify, Railway)
+- APIs and Services (Stripe, SendGrid, Twilio)
+
+**Research Sources:**
+- GitHub Student Developer Pack
+- University career centers
+- Popular development communities (Reddit, Discord)
+- Company websites with student programs
+
+**Technical Reference:**
+- Next.js Documentation and Learning Path
+- TypeScript Handbook
+- Prisma Documentation
+- Tailwind CSS Component Examples
+- Testing Library Best Practices
+</PRD> 
