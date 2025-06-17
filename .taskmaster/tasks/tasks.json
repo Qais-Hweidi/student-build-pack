@@ -100,28 +100,28 @@
             "id": "3.1",
             "title": "Install and configure Prisma packages",
             "description": "Install prisma and @prisma/client, initialize Prisma configuration",
-            "status": "completed",
+            "status": "done",
             "details": "Installed prisma and @prisma/client packages, ran npx prisma init, configured schema.prisma for PostgreSQL with directUrl support"
           },
           {
             "id": "3.2",
             "title": "Set up Prisma client singleton pattern",
             "description": "Create optimized Prisma client for Next.js development environment",
-            "status": "completed",
+            "status": "done",
             "details": "Created Prisma client singleton at src/database/prisma.ts with proper TypeScript types and query logging configuration"
           },
           {
             "id": "3.3",
             "title": "Configure Supabase PostgreSQL integration",
             "description": "Set up Supabase project and configure database connection",
-            "status": "completed",
+            "status": "done",
             "details": "Created Supabase project 'student-build-pack', configured DATABASE_URL and DIRECT_URL environment variables for PostgreSQL connection"
           },
           {
             "id": "3.4",
             "title": "Verify build and TypeScript compilation",
             "description": "Ensure project builds successfully with new Prisma setup",
-            "status": "completed",
+            "status": "done",
             "details": "Verified TypeScript compilation passes, linting rules pass, and no import errors after directory restructuring"
           },
           {
@@ -136,14 +136,14 @@
       {
         "id": 4,
         "title": "Design and Implement Database Schema",
-        "description": "Create comprehensive database schema for service providers, analytics tracking, and site configuration",
-        "details": "Define Prisma schema models: ServiceProvider (id, name, logoUrl, description, websiteUrl, offerDescription, discountDetails, createdAt, updatedAt), Analytics (id, serviceId, clickedAt, userAgent, referrerSource, sessionId, ipHash), PageViews (id, visitedAt, referrerSource, userAgent, pagePath, sessionId, ipHash), SiteConfiguration (id, githubRepoUrl, githubStarCount, lastStarCountUpdate, profileImageUrl, attributionText). Add proper indexes for performance on read-heavy operations. Set up foreign key relationships and constraints.",
-        "testStrategy": "Run `npx prisma db push` to apply schema, verify all tables are created correctly, and test relationships between models work as expected",
-        "priority": "high",
+        "description": "Create clean and focused database schema for service providers and essential site configuration",
+        "status": "done",
         "dependencies": [
           3
         ],
-        "status": "pending",
+        "priority": "high",
+        "details": "Define Prisma schema models: ServiceProvider (id, companyName, logoUrl, description, websiteUrl, offerDetails, discountDetails, createdAt, updatedAt), SiteConfiguration (id, githubRepoUrl, profileImageUrl, attributionText). Focus on clean field naming with 'companyName' instead of 'name' and 'offerDetails' instead of 'offerDescription' for better clarity. Add proper indexes for performance on read-heavy operations. Set up foreign key relationships and constraints where needed.",
+        "testStrategy": "Run `npx prisma db push` to apply schema, verify all tables are created correctly with proper field names and constraints",
         "subtasks": []
       },
       {
@@ -176,31 +176,18 @@
         "id": 7,
         "title": "Implement Service Card Component with TypeScript Interfaces",
         "description": "Create the core service display component with proper TypeScript typing and responsive design",
-        "details": "Create ServiceCard component with TypeScript interface matching Prisma ServiceProvider model. Implement responsive card layout with company logo, service description, discount details, and CTA button. Add hover effects and loading states. Use Next.js Image component for optimized logo display. Implement proper error boundaries for missing images or data. Add click tracking preparation (event handlers without analytics implementation yet).",
-        "testStrategy": "Render service cards with mock data, verify responsive design works across screen sizes, images load properly with fallbacks, and hover states function correctly",
-        "priority": "high",
+        "status": "pending",
         "dependencies": [
           6,
           5
         ],
-        "status": "pending",
+        "priority": "high",
+        "details": "Create ServiceCard component with TypeScript interface matching Prisma ServiceProvider model. Implement responsive card layout with company logo, service description, discount details, and CTA button. Add hover effects and loading states. Use Next.js Image component for optimized logo display. Implement proper error boundaries for missing images or data. Focus on clean component structure with proper TypeScript typing for companyName, offerDetails, and other schema fields.",
+        "testStrategy": "Render service cards with mock data, verify responsive design works across screen sizes, images load properly with fallbacks, and hover states function correctly",
         "subtasks": []
       },
       {
         "id": 8,
-        "title": "Integrate Third-Party Analytics",
-        "description": "Set up Google Analytics, Vercel Analytics, or similar third-party analytics for site-wide tracking",
-        "status": "pending",
-        "dependencies": [
-          4
-        ],
-        "priority": "medium",
-        "details": "Remove all custom analytics, referral tracking, and session management code. Integrate Google Analytics (GA4) and/or Vercel Analytics by adding their respective scripts or SDKs to the application. Ensure analytics scripts are loaded efficiently and respect user privacy settings (e.g., cookie consent). Document analytics integration for future reference.",
-        "testStrategy": "Verify analytics events are tracked in the third-party dashboards, scripts load correctly, and no custom analytics code remains in the codebase",
-        "subtasks": []
-      },
-      {
-        "id": 9,
         "title": "Build Sponsor Button with Popup",
         "description": "Create a sponsor button that opens a popup with sponsor/contact information",
         "status": "pending",
@@ -208,8 +195,19 @@
           6
         ],
         "priority": "medium",
-        "details": "Replace the GitHub star count display with a SponsorButton component. When clicked, the button opens a modal or popup displaying the static message: 'reach out to me if you wanna get featured or sponsor this project'. Ensure accessibility and responsive design. Remove all star count fetching, caching, and related API routes.",
-        "testStrategy": "Verify sponsor button renders, opens the popup with correct static text, and all GitHub star count logic is removed",
+        "details": "Create a SponsorButton component that displays a sponsor button. When clicked, the button opens a modal or popup displaying the static message: 'reach out to me if you wanna get featured or sponsor this project'. Ensure accessibility and responsive design.",
+        "testStrategy": "Verify sponsor button renders correctly, opens the popup with correct static text, and functions properly across different screen sizes",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Integrate Third-Party Analytics",
+        "description": "Set up Google Analytics (GA4) or Vercel Analytics for site-wide tracking",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "medium",
+        "details": "Integrate Google Analytics (GA4) and/or Vercel Analytics by adding their respective scripts or SDKs to the application. Ensure analytics scripts are loaded efficiently and respect user privacy settings (e.g., cookie consent). Configure basic event tracking for page views and user interactions. Document analytics integration for future reference.",
+        "testStrategy": "Verify analytics events are tracked in the third-party dashboards, scripts load correctly, and tracking works across different pages",
         "subtasks": []
       },
       {
@@ -245,7 +243,7 @@
         "status": "pending",
         "dependencies": [
           7,
-          9,
+          8,
           10,
           11
         ],
@@ -330,40 +328,11 @@
       },
       {
         "id": 13,
-        "title": "Remove Custom Click Tracking and Referral Context",
-        "description": "Delete all custom click tracking, referral context, and analytics data storage logic from the codebase",
-        "status": "pending",
-        "dependencies": [
-          8,
-          12
-        ],
-        "priority": "medium",
-        "details": "Remove click tracking API routes, ServiceCard onClick analytics handlers, and all code related to capturing serviceId, timestamp, user agent, referral source, or session ID. Ensure no analytics data is stored in the database. Update documentation to reflect the removal of custom analytics.",
-        "testStrategy": "Confirm all custom tracking code is removed, no analytics data is stored in the database, and only third-party analytics scripts remain",
-        "subtasks": []
-      },
-      {
-        "id": 14,
-        "title": "Remove Custom Page View Analytics and Session Tracking",
-        "description": "Delete all custom page view tracking, session management, and referral attribution logic",
-        "status": "pending",
-        "dependencies": [
-          8,
-          13
-        ],
-        "priority": "medium",
-        "details": "Remove all middleware, hooks, and utility functions related to page view tracking, session ID generation, and referral source attribution. Delete PageViews model and related database code. Ensure only third-party analytics (Google Analytics, Vercel Analytics) are used for tracking.",
-        "testStrategy": "Verify all custom page view/session tracking code is removed, PageViews model is deleted, and only third-party analytics scripts are present",
-        "subtasks": []
-      },
-      {
-        "id": 15,
         "title": "Implement Error Handling and Loading States",
         "description": "Add comprehensive error boundaries, loading states, and graceful failure handling throughout the application",
         "status": "pending",
         "dependencies": [
-          12,
-          13
+          12
         ],
         "priority": "medium",
         "details": "Create global error boundary component using React Error Boundary pattern. Implement loading skeletons for service cards using Tailwind CSS animations. Add error states for failed API calls, database connections, and image loading. Create custom 404 and 500 error pages with helpful messaging and navigation back to homepage. Implement retry mechanisms for failed requests. Add proper TypeScript error types and handling patterns throughout the application.",
@@ -371,7 +340,7 @@
         "subtasks": []
       },
       {
-        "id": 16,
+        "id": 14,
         "title": "Optimize Performance and Image Handling",
         "description": "Implement performance optimizations including image optimization, lazy loading, and bundle optimization",
         "status": "pending",
@@ -384,7 +353,7 @@
         "subtasks": []
       },
       {
-        "id": 17,
+        "id": 15,
         "title": "Set up SEO Optimization and Meta Tags",
         "description": "Implement comprehensive SEO optimization including meta tags, structured data, and social media integration",
         "status": "pending",
@@ -397,14 +366,14 @@
         "subtasks": []
       },
       {
-        "id": 18,
+        "id": 16,
         "title": "Deploy to Production and Set up Monitoring",
         "description": "Deploy application to Vercel with proper environment configuration and basic monitoring setup",
         "status": "pending",
         "dependencies": [
-          15,
-          16,
-          17
+          13,
+          14,
+          15
         ],
         "priority": "high",
         "details": "Set up Vercel deployment with proper environment variables for database connection and API keys. Configure production database with connection pooling and proper security settings. Set up domain configuration for studentbuildpack.com. Implement basic monitoring using Vercel Analytics and error tracking. Configure automatic deployments from main branch with preview deployments for pull requests. Set up backup strategy for database. Add basic uptime monitoring and alerting.",
@@ -485,7 +454,7 @@
         ]
       },
       {
-        "id": 19,
+        "id": 17,
         "title": "Create GitHub Repository and Push Initial Code",
         "description": "Set up GitHub repository named 'student-build-pack' with public visibility and proper configuration, then push initial codebase and connect local git repository to remote origin.",
         "details": "Create new GitHub repository with name 'student-build-pack' and set visibility to public. Configure repository description as 'A collection of paid products available for free or at a discount for students want to build'. Add appropriate topics/tags like 'student-discounts', 'nextjs', 'typescript', 'developer-tools'. Initialize repository with README.md template including project overview, setup instructions, and contribution guidelines. Set up local git repository using `git init`, add remote origin with `git remote add origin https://github.com/[username]/student-build-pack.git`. Create initial commit with existing codebase including Next.js configuration, Tailwind setup, database schema, and any completed components. Push code using `git push -u origin main`. Configure repository settings including branch protection rules, issue templates, and pull request templates for future collaboration. Add LICENSE file (MIT recommended) and .gitignore for Node.js/Next.js projects.",
@@ -498,7 +467,7 @@
     ],
     "metadata": {
       "created": "2025-06-16T12:28:35.938Z",
-      "updated": "2025-06-17T17:03:25.550Z",
+      "updated": "2025-06-17T18:44:41.995Z",
       "description": "Tasks for master context"
     }
   }

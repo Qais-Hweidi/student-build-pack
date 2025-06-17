@@ -8,5 +8,31 @@ datasource db {
   directUrl  = env("DIRECT_URL")
 }
 
-// Models will be added in the next task (Database Schema Design)
-// This schema is ready for the service provider and analytics models
+// Service Provider model for storing discount offers and service information
+model ServiceProvider {
+  id                String   @id @default(cuid())
+  companyName       String
+  logoUrl           String?
+  description       String   // Small description about what the company offers
+  websiteUrl        String
+  offerDetails      String   // Combined offer description and discount details
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Indexes for performance on read-heavy operations
+  @@index([createdAt])
+  @@index([companyName])
+  @@map("service_providers")
+}
+
+// Site Configuration model for global settings
+model SiteConfiguration {
+  id                    String    @id @default(cuid())
+  profileImageUrl       String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("site_configuration")
+}
+
+
