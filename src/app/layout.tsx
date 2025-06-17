@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
     title: "Student Build Pack",
-    description: "A comprehensive toolkit for student developers",
+    description:
+        "A collection of paid products available for free or at a discount for students want to build",
 }
 
 export default function RootLayout({
