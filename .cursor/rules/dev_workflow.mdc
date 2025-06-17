@@ -62,8 +62,12 @@ This ensures your progress is saved and backed up."
 - **Multiple Subtasks**: `[Task 1.1-1.3]` for range of subtasks
 - **Full Task**: `[Task 5]` for completing entire tasks
 - **Cross-Task**: `[Task 1.2, 3.1]` for work spanning multiple tasks
-- **Keep First Line Short**: 50-72 characters maximum
-- **Use Body for Details**: Add detailed explanation in commit body if needed
+
+**The 50/72 Rule (Industry Standard):**
+- **Subject Line**: ≤ 50 characters maximum (first line)
+- **Body Lines**: ≤ 72 characters per line (if present)
+- **Why**: Many Git tools (git log, GitHub) display only the subject line
+- **Benefit**: Keeps commit history clean, readable, and compatible with all Git tooling
 
 **Commit Types:**
 - `feat:` New features or functionality
@@ -74,11 +78,52 @@ This ensures your progress is saved and backed up."
 - `test:` Adding or updating tests
 - `chore:` Maintenance tasks, dependency updates
 
+**Detailed Commit Message Structure:**
+```
+[Task X.Y] type: Brief description (≤ 50 chars)
+
+Optional body explaining what and why, wrapped at 72 characters per 
+line. Separate the subject from body with a blank line. Use the body 
+to explain what you did and why you did it, not how you did it.
+
+- Bullet points are okay too
+- Use present tense: "Add feature" not "Added feature"
+- Reference issues, tickets, or related tasks if applicable
+```
+
+**Examples of Good Commit Messages:**
+```
+✅ [Task 1.3] feat: Add ESLint configuration
+✅ [Task 2.1] fix: Resolve database connection timeout
+✅ [Task 5] docs: Update API documentation
+
+✅ [Task 12.1] feat: Implement user authentication
+
+Add JWT-based authentication system with login/logout
+functionality. Includes middleware for protected routes
+and session management.
+
+- Add login/logout API endpoints
+- Implement JWT token validation middleware  
+- Create protected route wrapper component
+- Add user session state management
+```
+
+**Examples of Poor Commit Messages:**
+```
+❌ Fixed stuff (too vague, no task reference)
+❌ [Task 1.3] feat: Add ESLint configuration and update TypeScript settings and fix formatting issues (too long - 98 characters)
+❌ WIP (not descriptive)
+❌ Updated files (no context)
+```
+
 **Why This Matters:**
 - Links commits directly to Taskmaster tasks
 - Enables easy tracking of task progress in git history
 - Facilitates code review by providing task context
 - Helps with debugging by connecting issues to specific tasks
+- **Follows industry-standard 50/72 rule for maximum tool compatibility**
+- **Creates clean, scannable commit history**
 
 ## The Basic Loop
 The fundamental development cycle you will facilitate is:
