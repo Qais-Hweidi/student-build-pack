@@ -50,3 +50,4 @@ screenshots
 
 # Private files
 private
+/generated/prisma
