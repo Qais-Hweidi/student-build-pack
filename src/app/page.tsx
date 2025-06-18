@@ -18,9 +18,6 @@ export default function Home() {
             <h2 className='text-4xl font-bold text-gray-900 mb-4'>
               Welcome to Student Build Pack
             </h2>
-            <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
-              A simple, clean platform built with Next.js and Tailwind CSS.
-            </p>
           </div>
 
           {/* Simple Card Example */}
